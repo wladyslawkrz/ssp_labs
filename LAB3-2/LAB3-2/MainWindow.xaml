@@ -1,0 +1,39 @@
+<Window x:Class="Lab3_2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Графический редактор" Height="500" Width="800">
+    <Window.Resources>
+        <x:Array x:Key="MyDrawingAttributes" Type="{x:Type DrawingAttributes}">
+            <DrawingAttributes Color="Red" Width="5" Height="15" />
+            <DrawingAttributes Color="Green" Width="15" Height="15" />
+            <DrawingAttributes Color="Blue" Width="15" Height="15" />
+            <DrawingAttributes Color="Black" Width="15" Height="15" />
+        </x:Array>
+    </Window.Resources>
+    <Grid>
+        <!--<InkCanvas Name="inkCanvas" Background="White" />-->
+        <InkCanvas Name="inkCanvas" Background="White" DefaultDrawingAttributes="{Binding ElementName=lbColors, Path=SelectedValue}" Margin="124,0,0,0" />
+
+        <ListBox x:Name="lbColors" ItemsSource="{StaticResource MyDrawingAttributes}" Width="100" Height="100" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,44,0,0" >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Path=Color}"></TextBlock>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <ComboBox Name="ColorComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Margin="10,10,0,0"
+                  SelectionChanged="ColorComboBox_SelectionChanged">
+            <ComboBoxItem x:Name="Black"  Content="Черный" Foreground="Black"/>
+            <ComboBoxItem Content="Красный" Foreground="Red"/>
+            <ComboBoxItem Content="Синий" Foreground="Blue"/>
+        </ComboBox>
+
+        <Slider Name="SizeSlider" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Margin="10,149,0,0" Minimum="1" Maximum="10" Value="3"
+                ValueChanged="SizeSlider_ValueChanged"/>
+
+        <RadioButton Name="DrawRadioButton" Content="Рисование" IsChecked="True" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,186,0,0" Checked="DrawRadioButton_Checked"/>
+        <RadioButton Name="EditRadioButton" Content="Редактирование" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,206,0,0" Checked="EditRadioButton_Checked"/>
+        <RadioButton Name="DeleteRadioButton" Content="Удаление" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,227,0,0" Checked="DeleteRadioButton_Checked"/>
+    </Grid>
+</Window>
